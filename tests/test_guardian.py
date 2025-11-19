@@ -2,9 +2,9 @@ import pytest
 import requests
 import responses
 
-from ssb_guardian_client.guardian import GuardianClient
 from ssb_guardian_client.const import GUARDIAN_URLS
 from ssb_guardian_client.const import DaplaEnvironment
+from ssb_guardian_client.guardian import GuardianClient
 
 
 @responses.activate
@@ -69,7 +69,8 @@ def test_call_api_without_keycloak_token(monkeypatch: pytest.MonkeyPatch) -> Non
     fake_maskinporten_token = "maskinporten_access_token"
 
     monkeypatch.setattr(
-        "dapla_auth_client.auth_client.AuthClient.fetch_personal_token", mock_fetch_personal_token
+        "dapla_auth_client.auth_client.AuthClient.fetch_personal_token",
+        mock_fetch_personal_token,
     )
 
     guardian_response = {"accessToken": fake_maskinporten_token}

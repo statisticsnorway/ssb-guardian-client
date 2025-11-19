@@ -1,11 +1,10 @@
 import os
 import typing as t
 from typing import Any
-from typing import Optional
 
 import requests
-
 from dapla_auth_client import AuthClient
+
 from ssb_guardian_client.const import GUARDIAN_URLS
 from ssb_guardian_client.const import DaplaEnvironment
 
@@ -27,7 +26,7 @@ class GuardianClient:
         api_endpoint_url: str,
         maskinporten_client_id: str,
         scopes: str,
-        keycloak_token: Optional[str] = None,
+        keycloak_token: str | None = None,
     ) -> Any:
         """Call an external API using Maskinporten Guardian.
 
