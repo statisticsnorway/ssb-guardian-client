@@ -18,12 +18,12 @@ documentation = "https://statisticsnorway.github.io/ssb-guardian-client"
 Changelog = "https://github.com/statisticsnorway/ssb-guardian-client/releases"
 
 [project.scripts]
-ssb-guardian-client = "ssb-guardian-client.__main__:main"
+ssb-guardian-client = "ssb_guardian_client.__main__:main"
 
 [tool.poetry]
 classifiers = ["Development Status :: 1 - Planning"]
 requires-poetry = ">=2.0"
-packages = [{ include = "ssb-guardian-client", from = "src" }]
+packages = [{ include = "ssb_guardian_client", from = "src" }]
 
 [tool.poetry.group.dev.dependencies]
 pygments = ">=2.10.0"
@@ -57,7 +57,7 @@ tests = ["tests", "*/tests"]
 
 [tool.coverage.run]
 branch = true
-source = ["ssb-guardian-client", "tests"]
+source = ["ssb_guardian_client", "tests"]
 relative_files = true
 
 [tool.coverage.report]
