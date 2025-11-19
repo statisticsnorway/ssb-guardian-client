@@ -9,6 +9,7 @@ requires-python = ">=3.10,<4.0"
 dynamic = ["classifiers"]
 dependencies = [
     "click>=8.0.1",
+    "dapla-auth-client (>=1.2.0,<2.0.0)",
 ]
 
 [project.urls]
