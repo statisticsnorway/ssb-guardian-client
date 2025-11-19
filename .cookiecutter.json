@@ -1,0 +1,25 @@
+{
+  "_commit": "9e3c49f6680d4c400567c39d70b768f0a322c95e",
+  "_copy_without_render": [
+    "*.rst_t"
+  ],
+  "_jinja2_env_vars": {
+    "lstrip_blocks": true,
+    "trim_blocks": true
+  },
+  "_template": "https://github.com/statisticsnorway/ssb-pypitemplate.git",
+  "author": "Rupinder Kaur",
+  "code_quality_level": "Medium",
+  "copyright_owner": "Statistics Norway",
+  "copyright_year": "2025",
+  "department_number": "",
+  "dependency_manager_tool": "poetry",
+  "development_status": "Development Status :: 1 - Planning",
+  "email": "rupinder.kaur@ssb.no",
+  "friendly_name": "SSB Guardian Client",
+  "github_organization": "statisticsnorway",
+  "license": "MIT",
+  "package_name": "ssb-guardian-client",
+  "project_name": "ssb-guardian-client",
+  "version": "0.0.0"
+}
