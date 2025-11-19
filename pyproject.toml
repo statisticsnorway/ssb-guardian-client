@@ -57,7 +57,7 @@ tests = ["tests", "*/tests"]
 
 [tool.coverage.run]
 branch = true
-source = ["ssb-guardian-client", "tests"]
+source = ["ssb_guardian_client", "tests"]
 relative_files = true
 
 [tool.coverage.report]
