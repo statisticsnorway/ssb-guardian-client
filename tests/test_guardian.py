@@ -2,9 +2,9 @@ import pytest
 import requests
 import responses
 
-from ssb_guardian_client.guardian import GuardianClient
 from ssb_guardian_client.const import GUARDIAN_URLS
 from ssb_guardian_client.const import DaplaEnvironment
+from ssb_guardian_client.guardian import GuardianClient
 
 
 @responses.activate
