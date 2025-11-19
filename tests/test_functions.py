@@ -1,4 +1,4 @@
-from ssb-guardian-client.functions import example_function
+from ssb_guardian_client.functions import example_function
 
 
 def test_example_function() -> None:

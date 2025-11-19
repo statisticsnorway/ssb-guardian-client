@@ -3,7 +3,7 @@
 import pytest
 from click.testing import CliRunner
 
-from ssb-guardian-client import __main__
+from ssb_guardian_client import __main__
 
 
 @pytest.fixture
