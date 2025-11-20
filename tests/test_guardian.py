@@ -53,7 +53,9 @@ def test_get_guardian_token_failed_response() -> None:
         client.get_guardian_token(
             "https://guardian-endpoint-url.com", "invalid_token", body=body
         )
-    assert "Error getting guardian token" in str(exc_info.value)
+    assert "Error getting maskinporten access-token from guardian" in str(
+        exc_info.value
+    )
     assert "401" in str(exc_info.value)
 
 
