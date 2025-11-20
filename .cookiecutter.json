@@ -19,7 +19,7 @@
   "friendly_name": "SSB Guardian Client",
   "github_organization": "statisticsnorway",
   "license": "MIT",
-  "package_name": "ssb-guardian-client",
+  "package_name": "ssb_guardian_client",
   "project_name": "ssb-guardian-client",
   "version": "0.0.0"
 }

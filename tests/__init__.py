@@ -1,1 +1,1 @@
-"""Test suite for the ssb-guardian-client package."""
+"""Test suite for the ssb_guardian_client package."""

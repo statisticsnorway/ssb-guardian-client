@@ -5,7 +5,7 @@
   "context": {
     "cookiecutter": {
       "project_name": "ssb-guardian-client",
-      "package_name": "ssb-guardian-client",
+      "package_name": "ssb_guardian_client",
       "friendly_name": "SSB Guardian Client",
       "copyright_owner": "Statistics Norway",
       "copyright_year": "2025",
