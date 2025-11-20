@@ -26,11 +26,18 @@
 
 ## Features
 
-- TODO
+- **Maskinporten Integration**: Seamless integration with Maskinporten for secure API authentication
+- **Guardian Token Management**: Automatic retrieval and management of Maskinporten access tokens via Guardian
+- **Multi-Environment Support**: Works across DEV, TEST, and PROD environments in the Dapla platform
+- **Simple API**: Easy-to-use client interface for calling external APIs with Maskinporten authentication
+- **Automatic Token Handling**: Fetches personal tokens automatically using dapla-auth-client
 
 ## Requirements
 
-- TODO
+- Python 3.10 or higher
+- Access to Statistics Norway's Dapla platform
+- Valid Maskinporten client credentials
+- `DAPLA_ENVIRONMENT` environment variable set to one of: `DEV`, `TEST`, or `PROD`
 
 ## Installation
 
@@ -42,6 +49,65 @@ pip install ssb-guardian-client
 
 ## Usage
 
+### Basic Usage
+
+The `GuardianClient` class provides methods to interact with external APIs using Maskinporten authentication:
+
+```python
+from ssb_guardian_client.guardian import GuardianClient
+
+# Call an external API with Maskinporten authentication
+response = GuardianClient.call_api(
+    api_endpoint_url="https://api.example.com/data",
+    maskinporten_client_id="your-maskinporten-client-id",
+    scopes="scope1 scope2",
+)
+```
+
+### Advanced Usage
+
+You can also provide a custom personal token (labid):
+
+```python
+from ssb_guardian_client.guardian import GuardianClient
+
+# Call API with custom personal token
+response = GuardianClient.call_api(
+    api_endpoint_url="https://api.example.com/data",
+    maskinporten_client_id="your-maskinporten-client-id",
+    scopes="scope1 scope2",
+    labid="your-personal-token",
+)
+```
+
+### Getting Maskinporten Tokens Directly
+
+If you only need the Maskinporten token:
+
+```python
+from ssb_guardian_client.guardian import GuardianClient
+from dapla_auth_client import AuthClient
+
+guardian_url = GuardianClient.get_guardian_url()
+keycloak_token = AuthClient.fetch_personal_token()
+
+maskinporten_token = GuardianClient.get_guardian_token(
+    guardian_endpoint=guardian_url,
+    keycloak_token=keycloak_token,
+    body={
+        "maskinportenClientId": "your-client-id",
+        "scopes": "scope1 scope2"
+    }
+)
+```
+
+### Environment Configuration
+
+The client automatically detects the Dapla environment from the `DAPLA_ENVIRONMENT` environment variable and uses the appropriate Guardian URL:
+
+- **DEV/TEST**: `https://guardian.intern.test.ssb.no/maskinporten/access-token`
+- **PROD**: `https://guardian.intern.ssb.no/maskinporten/access-token`
+
 Please see the [Reference Guide] for details.
 
 ## Contributing
@@ -49,10 +115,79 @@ Please see the [Reference Guide] for details.
 Contributions are very welcome.
 To learn more, see the [Contributor Guide].
 
+## Development
+
+### Setting Up a Development Environment
+
+1. Clone the repository:
+   ```console
+   git clone https://github.com/statisticsnorway/ssb-guardian-client.git
+   cd ssb-guardian-client
+   ```
+
+2. Install [Poetry](https://python-poetry.org/) if you haven't already.
+
+3. Install dependencies:
+   ```console
+   poetry install
+   ```
+
+4. Set up pre-commit hooks:
+   ```console
+   poetry run pre-commit install
+   ```
+
+### Running Tests
+
+Run tests with pytest:
+
+```console
+poetry run pytest
+```
+
+Run tests with coverage:
+
+```console
+poetry run coverage run -m pytest
+poetry run coverage report
+```
+
+### Code Quality
+
+This project uses several tools to maintain code quality:
+
+- **Black**: Code formatting
+- **Ruff**: Linting and code quality checks
+- **MyPy**: Static type checking
+- **pre-commit**: Git hooks for automated checks
+
+Run all checks:
+
+```console
+poetry run pre-commit run --all-files
+```
+
 ## License
 
 Distributed under the terms of the [MIT license][license],
 _SSB Guardian Client_ is free and open source software.
+
+## Troubleshooting
+
+### Common Issues
+
+**ValueError: Unknown environment**
+- Ensure the `DAPLA_ENVIRONMENT` environment variable is set to one of: `DEV`, `TEST`, or `PROD`
+
+**RuntimeError: Error getting maskinporten access-token from guardian**
+- Verify your Maskinporten client ID and scopes are correct
+- Ensure you have the necessary permissions to use the specified Maskinporten client
+- Check that your Keycloak token is valid
+
+**RuntimeError: Error calling target API**
+- Verify the API endpoint URL is correct
+- Ensure the Maskinporten scopes match what the API requires
+- Check that the API is accessible from your environment
 
 ## Issues
 
