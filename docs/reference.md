@@ -7,33 +7,33 @@ from the root directory.
 
 You need to rerun the command when python files are added, deleted or renamed.
 Copy the content from the generated
-ssb-guardian-client.rst file to the {eval-rst} block below and
+ssb_guardian_client.rst file to the {eval-rst} block below and
 delete the .rst file afterwards.
 -->
 
 ```{eval-rst}
-ssb\_guardian\_client package
-=============================
+ssb_guardian_client package
+===========================
 
 
-ssb\_guardian\_client.const module
-----------------------------------
+ssb_guardian_client.const module
+--------------------------------
 
 .. automodule:: ssb_guardian_client.const
    :members:
    :undoc-members:
    :show-inheritance:
 
-ssb\_guardian\_client.functions module
---------------------------------------
+ssb_guardian_client.functions module
+------------------------------------
 
 .. automodule:: ssb_guardian_client.functions
    :members:
    :undoc-members:
    :show-inheritance:
 
-ssb\_guardian\_client.guardian module
--------------------------------------
+ssb_guardian_client.guardian module
+-----------------------------------
 
 .. automodule:: ssb_guardian_client.guardian
    :members:
