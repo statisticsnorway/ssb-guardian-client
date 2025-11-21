@@ -62,7 +62,7 @@ class GuardianClient:
 
         body = {"maskinportenClientId": maskinporten_client_id, "scopes": scopes}
         logger.debug("Requesting Maskinporten token from Guardian")
-        maskinporten_token = GuardianClient.get_guardian_token(
+        maskinporten_token = GuardianClient.get_maskinporten_token(
             guardian_endpoint_url, labid, body=body
         )
 
@@ -86,7 +86,7 @@ class GuardianClient:
             raise RuntimeError(error_msg)
 
     @staticmethod
-    def get_guardian_token(
+    def get_maskinporten_token(
         guardian_endpoint: str, keycloak_token: str, body: dict[str, str]
     ) -> str:
         """Retrieve access token from Maskinporten Guardian.
