@@ -84,7 +84,7 @@ def get_maskinporten_token(body: dict[str, str]) -> str:
     """
     guardian_endpoint = get_guardian_url()
     keycloak_token = AuthClient.fetch_personal_token()
-    
+
     logger.info(f"Requesting Maskinporten token from Guardian: {guardian_endpoint}")
     logger.debug(f"Request body: {body}")
 

@@ -18,11 +18,11 @@ def mock_fetch_personal_token() -> str:
 def test_call_api_with_failed_api_response(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("DAPLA_ENVIRONMENT", "TEST")
     fake_maskinporten_token = "maskinporten_access_token"
-    
+
     monkeypatch.setattr(
         "dapla_auth_client.AuthClient.fetch_personal_token", mock_fetch_personal_token
     )
-    
+
     guardian_response = {"accessToken": fake_maskinporten_token}
     responses.add(
         responses.POST,
@@ -50,11 +50,11 @@ def test_call_api_with_failed_api_response(monkeypatch: pytest.MonkeyPatch) -> N
 @responses.activate
 def test_get_guardian_token_failed_response(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("DAPLA_ENVIRONMENT", "TEST")
-    
+
     monkeypatch.setattr(
         "dapla_auth_client.AuthClient.fetch_personal_token", mock_fetch_personal_token
     )
-    
+
     responses.add(
         responses.POST,
         "https://guardian.intern.test.ssb.no/maskinporten/access-token",
@@ -105,11 +105,11 @@ def test_call_api_without_keycloak_token(monkeypatch: pytest.MonkeyPatch) -> Non
 @responses.activate
 def test_get_guardian_token_empty_response(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("DAPLA_ENVIRONMENT", "TEST")
-    
+
     monkeypatch.setattr(
         "dapla_auth_client.AuthClient.fetch_personal_token", mock_fetch_personal_token
     )
-    
+
     responses.add(
         responses.POST,
         "https://guardian.intern.test.ssb.no/maskinporten/access-token",
@@ -126,11 +126,11 @@ def test_get_guardian_token_empty_response(monkeypatch: pytest.MonkeyPatch) -> N
 def test_call_api_with_network_error(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("DAPLA_ENVIRONMENT", "TEST")
     fake_maskinporten_token = "maskinporten_access_token"
-    
+
     monkeypatch.setattr(
         "dapla_auth_client.AuthClient.fetch_personal_token", mock_fetch_personal_token
     )
-    
+
     guardian_response = {"accessToken": fake_maskinporten_token}
     responses.add(
         responses.POST,
