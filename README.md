@@ -137,11 +137,11 @@ try:
         maskinporten_client_id="my-maskinporten-client",
         scopes="nav:some/scope nav:another/scope",
     )
-    
+
     # Process the response
     for item in response.get("data", []):
         print(item)
-        
+
 except RuntimeError as e:
     print(f"API call failed: {e}")
 ```
