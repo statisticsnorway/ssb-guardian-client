@@ -2,6 +2,8 @@ import logging
 import os
 import typing as t
 from typing import Any
+from typing import Mapping
+from typing import Sequence
 
 import requests
 from dapla_auth_client import AuthClient
@@ -71,7 +73,7 @@ def call_api(
         raise RuntimeError(error_msg)
 
 
-def get_maskinporten_token(body: dict[str, str]) -> str:
+def get_maskinporten_token(body: Mapping[str, str | Sequence[str]]) -> str:
     """Retrieve access token from Maskinporten Guardian.
 
     Args:

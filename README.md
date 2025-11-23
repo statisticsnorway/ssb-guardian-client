@@ -60,7 +60,7 @@ from ssb_guardian_client import call_api
 response = call_api(
     api_endpoint_url="https://api.example.com/data",
     maskinporten_client_id="your-maskinporten-client-id",
-    scopes="scope1 scope2",  # Note: scopes as space-separated string
+    scopes=["scope1 scope2"],  # Note: scopes as space-separated string
 )
 
 # The response contains the JSON data from the API
