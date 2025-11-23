@@ -1,9 +1,9 @@
 import logging
 import os
 import typing as t
+from collections.abc import Mapping
+from collections.abc import Sequence
 from typing import Any
-from typing import Mapping
-from typing import Sequence
 
 import requests
 from dapla_auth_client import AuthClient
