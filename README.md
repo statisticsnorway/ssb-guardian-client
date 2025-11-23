@@ -51,13 +51,13 @@ pip install ssb-guardian-client
 
 ### Basic Usage
 
-The `GuardianClient` class provides methods to interact with external APIs using Maskinporten authentication:
+The library provides functions to interact with external APIs using Maskinporten authentication:
 
 ```python
-from ssb_guardian_client.guardian import GuardianClient
+from ssb_guardian_client import call_api
 
 # Call an external API with Maskinporten authentication
-response = GuardianClient.call_api(
+response = call_api(
     api_endpoint_url="https://api.example.com/data",
     maskinporten_client_id="your-maskinporten-client-id",
     scopes="scope1 scope2",
@@ -69,10 +69,10 @@ response = GuardianClient.call_api(
 You can also provide a custom personal token (labid):
 
 ```python
-from ssb_guardian_client.guardian import GuardianClient
+from ssb_guardian_client import call_api
 
 # Call API with custom personal token
-response = GuardianClient.call_api(
+response = call_api(
     api_endpoint_url="https://api.example.com/data",
     maskinporten_client_id="your-maskinporten-client-id",
     scopes="scope1 scope2",
@@ -85,13 +85,13 @@ response = GuardianClient.call_api(
 If you only need the Maskinporten token:
 
 ```python
-from ssb_guardian_client.guardian import GuardianClient
+from ssb_guardian_client import get_guardian_url, get_maskinporten_token
 from dapla_auth_client import AuthClient
 
-guardian_url = GuardianClient.get_guardian_url()
+guardian_url = get_guardian_url()
 keycloak_token = AuthClient.fetch_personal_token()
 
-maskinporten_token = GuardianClient.get_guardian_token(
+maskinporten_token = get_maskinporten_token(
     guardian_endpoint=guardian_url,
     keycloak_token=keycloak_token,
     body={
