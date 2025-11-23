@@ -62,7 +62,7 @@ def test_get_guardian_token_failed_response(monkeypatch: pytest.MonkeyPatch) -> 
         status=401,
     )
 
-    body = {"maskinportenClientId": "fake_client_id", "scopes": "dummy:scope"}
+    body = {"maskinportenClientId": "fake_client_id", "scopes": ["dummy:scope"]}
     with pytest.raises(RuntimeError) as exc_info:
         get_maskinporten_token(body=body)
     assert "Error getting maskinporten access-token from guardian" in str(
@@ -117,7 +117,7 @@ def test_get_guardian_token_empty_response(monkeypatch: pytest.MonkeyPatch) -> N
         status=200,
     )
 
-    body = {"maskinportenClientId": "fake_client_id", "scopes": "dummy:scope"}
+    body = {"maskinportenClientId": "fake_client_id", "scopes": ["dummy:scope"]}
     with pytest.raises(KeyError):
         get_maskinporten_token(body=body)
 
