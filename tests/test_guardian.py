@@ -50,7 +50,7 @@ def test_get_guardian_token_failed_response() -> None:
 
     body = {"maskinportenClientId": "fake_client_id", "scopes": "dummy:scope"}
     with pytest.raises(RuntimeError) as exc_info:
-        client.get_maskinporten_token(
+        get_maskinporten_token(
             "https://guardian-endpoint-url.com", "invalid_token", body=body
         )
     assert "Error getting maskinporten access-token from guardian" in str(
@@ -106,7 +106,7 @@ def test_get_guardian_token_empty_response() -> None:
 
     body = {"maskinportenClientId": "fake_client_id", "scopes": "dummy:scope"}
     with pytest.raises(KeyError):
-        client.get_maskinporten_token(
+        get_maskinporten_token(
             "https://guardian-endpoint-url.com", "fake_token", body=body
         )
 

@@ -46,9 +46,7 @@ def call_api(
         The endpoint json response
     """
     logger.info(f"Calling external API: {api_endpoint_url}")
-    logger.debug(
-        f"Maskinporten client ID: {maskinporten_client_id}, scopes: {scopes}"
-    )
+    logger.debug(f"Maskinporten client ID: {maskinporten_client_id}, scopes: {scopes}")
 
     guardian_endpoint_url = get_guardian_url()
 
@@ -58,9 +56,7 @@ def call_api(
 
     body = {"maskinportenClientId": maskinporten_client_id, "scopes": scopes}
     logger.debug("Requesting Maskinporten token from Guardian")
-    maskinporten_token = get_maskinporten_token(
-        guardian_endpoint_url, labid, body=body
-    )
+    maskinporten_token = get_maskinporten_token(guardian_endpoint_url, labid, body=body)
 
     logger.debug(f"Making GET request to target API: {api_endpoint_url}")
     api_response = requests.get(

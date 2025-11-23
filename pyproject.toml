@@ -16,7 +16,7 @@ dependencies = [
 homepage = "https://github.com/statisticsnorway/ssb-guardian-client"
 repository = "https://github.com/statisticsnorway/ssb-guardian-client"
 documentation = "https://statisticsnorway.github.io/ssb-guardian-client"
-Changelog = "hgit pusttps://github.com/statisticsnorway/ssb-guardian-client/releases"
+Changelog = "https://github.com/statisticsnorway/ssb-guardian-client/releases"
 
 [project.scripts]
 ssb-guardian-client = "ssb_guardian_client.__main__:main"
