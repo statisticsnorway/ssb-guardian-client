@@ -1,6 +1,6 @@
 [project]
 name = "ssb-guardian-client"
-version = "0.0.8"
+version = "0.0.9"
 description = "SSB Guardian Client"
 authors = [{ name = "Rupinder Kaur", email = "rupinder.kaur@ssb.no" }]
 license = "MIT"
