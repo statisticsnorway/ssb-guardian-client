@@ -51,7 +51,7 @@ pip install ssb-guardian-client
 
 ### Basic Usage
 
-The library provides functions to interact with external APIs using Maskinporten authentication:
+The simplest way to call an external API with Maskinporten authentication:
 
 ```python
 from ssb_guardian_client import call_api
@@ -62,43 +62,52 @@ response = call_api(
     maskinporten_client_id="your-maskinporten-client-id",
     scopes="scope1 scope2",
 )
+
+# The response contains the JSON data from the API
+print(response)
 ```
 
-### Advanced Usage
-
-You can also provide a custom personal token (labid):
-
-```python
-from ssb_guardian_client import call_api
-
-# Call API with custom personal token
-response = call_api(
-    api_endpoint_url="https://api.example.com/data",
-    maskinporten_client_id="your-maskinporten-client-id",
-    scopes="scope1 scope2",
-    labid="your-personal-token",
-)
-```
+The `call_api` function automatically:
+- Fetches your personal Keycloak token using `dapla-auth-client`
+- Requests a Maskinporten access token from Guardian
+- Calls the target API with the Maskinporten token
+- Returns the JSON response
 
 ### Getting Maskinporten Tokens Directly
 
-If you only need the Maskinporten token:
+If you need more control or only want to retrieve the Maskinporten token:
 
 ```python
-from ssb_guardian_client import get_guardian_url, get_maskinporten_token
-from dapla_auth_client import AuthClient
+from ssb_guardian_client import get_maskinporten_token
 
-guardian_url = get_guardian_url()
-keycloak_token = AuthClient.fetch_personal_token()
-
+# Get a Maskinporten token for custom use
 maskinporten_token = get_maskinporten_token(
-    guardian_endpoint=guardian_url,
-    keycloak_token=keycloak_token,
     body={
         "maskinportenClientId": "your-client-id",
         "scopes": "scope1 scope2"
     }
 )
+
+# Use the token for custom API calls
+import requests
+response = requests.get(
+    "https://api.example.com/data",
+    headers={"Authorization": f"Bearer {maskinporten_token}"}
+)
+```
+
+The `get_maskinporten_token` function automatically fetches your personal Keycloak token and retrieves the appropriate Guardian URL based on your environment.
+
+### Working with Guardian URLs
+
+To get the Guardian URL for your current environment:
+
+```python
+from ssb_guardian_client import get_guardian_url
+
+# Get the Guardian URL based on DAPLA_ENVIRONMENT
+guardian_url = get_guardian_url()
+print(guardian_url)
 ```
 
 ### Environment Configuration
@@ -107,6 +116,35 @@ The client automatically detects the Dapla environment from the `DAPLA_ENVIRONME
 
 - **DEV/TEST**: `https://guardian.intern.test.ssb.no/maskinporten/access-token`
 - **PROD**: `https://guardian.intern.ssb.no/maskinporten/access-token`
+
+Make sure the `DAPLA_ENVIRONMENT` variable is set to one of: `DEV`, `TEST`, or `PROD`.
+
+### Complete Example
+
+Here's a complete example showing typical usage:
+
+```python
+import os
+from ssb_guardian_client import call_api
+
+# Ensure environment is set (usually already set in Dapla notebooks)
+# os.environ["DAPLA_ENVIRONMENT"] = "TEST"
+
+# Call an external API
+try:
+    response = call_api(
+        api_endpoint_url="https://api.external-service.no/v1/data",
+        maskinporten_client_id="my-maskinporten-client",
+        scopes="nav:some/scope nav:another/scope",
+    )
+    
+    # Process the response
+    for item in response.get("data", []):
+        print(item)
+        
+except RuntimeError as e:
+    print(f"API call failed: {e}")
+```
 
 Please see the [Reference Guide] for details.
 
