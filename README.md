@@ -60,7 +60,7 @@ from ssb_guardian_client import call_api
 response = call_api(
     api_endpoint_url="https://api.example.com/data",
     maskinporten_client_id="your-maskinporten-client-id",
-    scopes="scope1 scope2",
+    scopes="scope1 scope2",  # Note: scopes as space-separated string
 )
 
 # The response contains the JSON data from the API
@@ -81,12 +81,16 @@ If you need more control or only want to retrieve the Maskinporten token:
 from ssb_guardian_client import get_maskinporten_token
 
 # Get a Maskinporten token for custom use
+# IMPORTANT: scopes must be passed as a list/array of strings
 maskinporten_token = get_maskinporten_token(
     body={
         "maskinportenClientId": "your-client-id",
-        "scopes": "scope1 scope2"
+        "scopes": ["scope1", "scope2"]  # Must be a list, not a string!
     }
 )
+
+# For a single scope, still use a list:
+# "scopes": ["elhub:publicstakeholder"]
 
 # Use the token for custom API calls
 import requests
@@ -97,6 +101,15 @@ response = requests.get(
 ```
 
 The `get_maskinporten_token` function automatically fetches your personal Keycloak token and retrieves the appropriate Guardian URL based on your environment.
+
+**⚠️ Important: Scopes Format**
+
+When using `get_maskinporten_token` directly, the `scopes` parameter **must be a list/array** of strings:
+- ✅ Correct: `"scopes": ["scope1", "scope2"]`
+- ✅ Correct: `"scopes": ["elhub:publicstakeholder"]`
+- ❌ Wrong: `"scopes": "scope1 scope2"` (string will cause a 400 error)
+
+When using `call_api`, scopes can be provided as a space-separated string (e.g., `"scope1 scope2"`), as the function handles the conversion internally.
 
 ### Working with Guardian URLs
 
@@ -135,7 +148,7 @@ try:
     response = call_api(
         api_endpoint_url="https://api.external-service.no/v1/data",
         maskinporten_client_id="my-maskinporten-client",
-        scopes="nav:some/scope nav:another/scope",
+        scopes="nav:some/scope nav:another/scope",  # Space-separated string for call_api
     )
 
     # Process the response

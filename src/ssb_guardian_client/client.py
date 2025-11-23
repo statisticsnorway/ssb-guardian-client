@@ -35,7 +35,8 @@ def call_api(
     Args:
         api_endpoint_url: URL to the target API
         maskinporten_client_id: the Maskinporten client id
-        scopes: the Maskinporten scopes
+        scopes: the Maskinporten scopes as a space-separated string (e.g., "scope1 scope2").
+            Note: This will be converted to a list for the Guardian API request.
 
     Raises:
         RuntimeError: If the API call fails
@@ -74,7 +75,12 @@ def get_maskinporten_token(body: dict[str, str]) -> str:
     """Retrieve access token from Maskinporten Guardian.
 
     Args:
-        body: maskinporten request body
+        body: maskinporten request body containing:
+            - maskinportenClientId (str): The Maskinporten client ID
+            - scopes (list[str] | str): The Maskinporten scopes.
+                **IMPORTANT**: When calling this function directly, scopes MUST be a list/array.
+                Example: {"maskinportenClientId": "...", "scopes": ["scope1", "scope2"]}
+                Using a string value will result in a 400 Bad Request error from Guardian.
 
     Raises:
         RuntimeError: If the Guardian token request fails
