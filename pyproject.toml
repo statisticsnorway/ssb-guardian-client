@@ -2,7 +2,10 @@
 name = "ssb-guardian-client"
 version = "0.0.9"
 description = "SSB Guardian Client"
-authors = [{ name = "Rupinder Kaur", email = "rupinder.kaur@ssb.no" }]
+authors = [
+    { name = "Statistics Norway", email = "dev@ssb.no" },
+    { name = "Rupinder Kaur", email = "rupinder.kaur@ssb.no" }
+]
 license = "MIT"
 readme = "README.md"
 requires-python = ">=3.10,<4.0"
