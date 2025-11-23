@@ -29,7 +29,6 @@ def call_api(
     api_endpoint_url: str,
     maskinporten_client_id: str,
     scopes: str,
-    labid: str | None = None,
 ) -> Any:
     """Call an external API using Maskinporten Guardian.
 
@@ -37,7 +36,6 @@ def call_api(
         api_endpoint_url: URL to the target API
         maskinporten_client_id: the Maskinporten client id
         scopes: the Maskinporten scopes
-        labid: the user's personal token. Automatic fetch attempt will be made if left empty.
 
     Raises:
         RuntimeError: If the API call fails
@@ -48,15 +46,9 @@ def call_api(
     logger.info(f"Calling external API: {api_endpoint_url}")
     logger.debug(f"Maskinporten client ID: {maskinporten_client_id}, scopes: {scopes}")
 
-    guardian_endpoint_url = get_guardian_url()
-
-    if labid is None:
-        logger.debug("No labid provided, fetching personal token automatically")
-        labid = AuthClient.fetch_personal_token()
-
     body = {"maskinportenClientId": maskinporten_client_id, "scopes": scopes}
     logger.debug("Requesting Maskinporten token from Guardian")
-    maskinporten_token = get_maskinporten_token(guardian_endpoint_url, labid, body=body)
+    maskinporten_token = get_maskinporten_token(body=body)
 
     logger.debug(f"Making GET request to target API: {api_endpoint_url}")
     api_response = requests.get(
@@ -78,14 +70,10 @@ def call_api(
         raise RuntimeError(error_msg)
 
 
-def get_maskinporten_token(
-    guardian_endpoint: str, keycloak_token: str, body: dict[str, str]
-) -> str:
+def get_maskinporten_token(body: dict[str, str]) -> str:
     """Retrieve access token from Maskinporten Guardian.
 
     Args:
-        guardian_endpoint: URL to the maskinporten guardian
-        keycloak_token: the user's Keycloak token
         body: maskinporten request body
 
     Raises:
@@ -94,6 +82,9 @@ def get_maskinporten_token(
     Returns:
         The maskinporten access token
     """
+    guardian_endpoint = get_guardian_url()
+    keycloak_token = AuthClient.fetch_personal_token()
+
     logger.info(f"Requesting Maskinporten token from Guardian: {guardian_endpoint}")
     logger.debug(f"Request body: {body}")
 
