@@ -6,6 +6,9 @@ authors = [
     { name = "Statistics Norway", email = "dev@ssb.no" },
     { name = "Rupinder Kaur", email = "rupinder.kaur@ssb.no" }
 ]
+maintainers = [
+    { name = "Statistics Norway, Data collection platform Department (722)" }
+]
 license = "MIT"
 readme = "README.md"
 requires-python = ">=3.10,<4.0"
