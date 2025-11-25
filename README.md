@@ -54,20 +54,23 @@ pip install ssb-guardian-client
 The simplest way to call an external API with Maskinporten authentication:
 
 ```python
-from ssb_guardian_client import call_api
+from ssb_guardian_client import GuardianClient
+
+# Create a GuardianClient instance
+client = GuardianClient()
 
 # Call an external API with Maskinporten authentication
-response = call_api(
+response = client.call_api(
     api_endpoint_url="https://api.example.com/data",
     maskinporten_client_id="your-maskinporten-client-id",
-    scopes=["scope1 scope2"],  # Note: scopes as space-separated string
+    scopes="scope1 scope2",  # Space-separated string
 )
 
 # The response contains the JSON data from the API
 print(response)
 ```
 
-The `call_api` function automatically:
+The `call_api` method automatically:
 - Fetches your personal Keycloak token using `dapla-auth-client`
 - Requests a Maskinporten access token from Guardian
 - Calls the target API with the Maskinporten token
@@ -78,19 +81,23 @@ The `call_api` function automatically:
 If you need more control or only want to retrieve the Maskinporten token:
 
 ```python
-from ssb_guardian_client import get_maskinporten_token
+from ssb_guardian_client import GuardianClient
+
+# Create a GuardianClient instance
+client = GuardianClient()
 
 # Get a Maskinporten token for custom use
-# IMPORTANT: scopes must be passed as a list/array of strings
-maskinporten_token = get_maskinporten_token(
-    body={
-        "maskinportenClientId": "your-client-id",
-        "scopes": ["scope1", "scope2"]  # Must be a list, not a string!
-    }
+# Scopes can be passed as either a list or a space-separated string
+maskinporten_token = client.get_maskinporten_token(
+    maskinporten_client_id="your-client-id",
+    scopes=["scope1", "scope2"]  # List of scopes
 )
 
-# For a single scope, still use a list:
-# "scopes": ["elhub:publicstakeholder"]
+# Or with a space-separated string:
+maskinporten_token = client.get_maskinporten_token(
+    maskinporten_client_id="your-client-id",
+    scopes="scope1 scope2"  # Space-separated string
+)
 
 # Use the token for custom API calls
 import requests
@@ -100,28 +107,13 @@ response = requests.get(
 )
 ```
 
-The `get_maskinporten_token` function automatically fetches your personal Keycloak token and retrieves the appropriate Guardian URL based on your environment.
+The `get_maskinporten_token` method automatically fetches your personal Keycloak token and retrieves the appropriate Guardian URL based on your environment.
 
-**⚠️ Important: Scopes Format**
+**📝 Note: Scopes Format**
 
-When using `get_maskinporten_token` directly, the `scopes` parameter **must be a list/array** of strings:
-- ✅ Correct: `"scopes": ["scope1", "scope2"]`
-- ✅ Correct: `"scopes": ["elhub:publicstakeholder"]`
-- ❌ Wrong: `"scopes": "scope1 scope2"` (string will cause a 400 error)
-
-When using `call_api`, scopes can be provided as a space-separated string (e.g., `"scope1 scope2"`), as the function handles the conversion internally.
-
-### Working with Guardian URLs
-
-To get the Guardian URL for your current environment:
-
-```python
-from ssb_guardian_client import get_guardian_url
-
-# Get the Guardian URL based on DAPLA_ENVIRONMENT
-guardian_url = get_guardian_url()
-print(guardian_url)
-```
+The `scopes` parameter accepts both formats:
+- ✅ List: `["scope1", "scope2"]` or `["elhub:publicstakeholder"]`
+- ✅ String: `"scope1 scope2"` or `"elhub:publicstakeholder"`
 
 ### Environment Configuration
 
@@ -138,17 +130,20 @@ Here's a complete example showing typical usage:
 
 ```python
 import os
-from ssb_guardian_client import call_api
+from ssb_guardian_client import GuardianClient
 
 # Ensure environment is set (usually already set in Dapla notebooks)
 # os.environ["DAPLA_ENVIRONMENT"] = "TEST"
 
+# Create a GuardianClient instance
+client = GuardianClient()
+
 # Call an external API
 try:
-    response = call_api(
+    response = client.call_api(
         api_endpoint_url="https://api.external-service.no/v1/data",
         maskinporten_client_id="my-maskinporten-client",
-        scopes="nav:some/scope nav:another/scope",  # Space-separated string for call_api
+        scopes="nav:some/scope nav:another/scope",  # Space-separated string
     )
 
     # Process the response
