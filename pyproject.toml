@@ -1,6 +1,6 @@
 [project]
 name = "ssb-guardian-client"
-version = "0.0.11"
+version = "0.0.12"
 description = "SSB Guardian Client"
 authors = [{ name = "Rupinder Kaur", email = "rupinder.kaur@ssb.no" }]
 license = "MIT"
@@ -10,6 +10,8 @@ dynamic = ["classifiers"]
 dependencies = [
     "click>=8.0.1",
     "dapla-auth-client (>=1.2.0,<2.0.0)",
+    # Minimum CA bundle without the compromised eMudhra intermediates (https://emudhra.we-have-a-problem.com/)
+    "certifi>=2026.10.19",
 ]
 
 [project.urls]
