@@ -34,7 +34,7 @@
 
 ## Requirements
 
-- Python 3.10 or higher
+- Python 3.11.5 or higher
 - Access to Statistics Norway's Dapla platform
 - Valid Maskinporten client credentials
 - `DAPLA_ENVIRONMENT` environment variable set to one of: `DEV`, `TEST`, or `PROD`
